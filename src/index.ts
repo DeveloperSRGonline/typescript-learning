@@ -1,13 +1,11 @@
-// Interface Merging (Works)
-interface Window {
-  title: string;
-}
-interface Window {
-  ts: string;
-}
+// Use interface when:
 
-// Resulting Window object has both 'title' and 'ts'
+// Defining shapes for objects, classes, or API response payload structures.
 
-// Type Alias Redeclaration (Fails)
-type Config = { port: number };
-// type Config = { host: string }; // Error: Duplicate identifier 'Config'.
+// Writing public library code or SDKs (allows users to extend interfaces via declaration merging).
+
+// Use type when:
+
+// Defining union or intersection types (e.g., type Status = 'success' | 'error').
+
+// Typing primitives, tuples, or complex mapped and conditional types.
