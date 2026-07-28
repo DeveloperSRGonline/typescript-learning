@@ -1,11 +1,13 @@
-interface ServerConfig {
-  port: number;
-  env: "development" | "production";
+// Interface Merging (Works)
+interface Window {
+  title: string;
+}
+interface Window {
+  ts: string;
 }
 
-function startServer(config: ServerConfig): void {
-  console.log(`🚀 Server starting on port ${config.port} in ${config.env} mode...`);
-}
+// Resulting Window object has both 'title' and 'ts'
 
-startServer({ port: 3000, env: "development" });
-startServer({ port: 5000, env: "production" });
+// Type Alias Redeclaration (Fails)
+type Config = { port: number };
+// type Config = { host: string }; // Error: Duplicate identifier 'Config'.
