@@ -1,16 +1,14 @@
-interface HasId {
-  id: string | number;
+// K must be a valid key of object type T
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
 }
 
-// T MUST have an 'id' property
-function printId<T extends HasId>(item: T): void {
-  console.log(`Item ID: ${item.id}`);
-}
+const user = { name: "Sarah", age: 28 };
 
-// printId({ id: 101, title: "Product A" }); // Valid
-// // printId({ title: "Product B" });       // Error: Property 'id' is missing
+const username = getProperty(user, "name"); // Valid, returns string
+const age = getProperty(user, "age"); // Valid, returns string
+// getProperty(user, "email");              // Error: 'email' doesn't exist on user
 
-printId({id:"string id"})
-// printId({title:"string title"})// must have id atleast more things can be accepted if id is there
-
-// this meand accepting value with union's considered types
+console.log(username,age)
+console.log(user["name"])
+console.log(user["age"])
