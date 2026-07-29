@@ -1,27 +1,22 @@
-interface Database {
-  get<T>(table: string): T;
+// T is locked in when the interface is declared/implemented
+interface APIResponse<T> {
+  status: number;
+  data: T;
+  error?: string;
 }
 
-class MyDatabase implements Database {
-  get<T>(table: string): T {
-    // Imagine this data comes from a real database
-    const database = {
-      user: { id: 1, name: "Shivam" },
-      product: { id: 101, title: "Laptop", price: 50000 },
-    };
-
-    return database[table as keyof typeof database] as T;
-  }
+// Usage with a specific shape
+interface User {
+  id: number;
+  name: string;
 }
 
-const db = new MyDatabase();
+const userResponse: APIResponse<User> = {
+  status: 200,
+  data: { id: 1, name: "Alice" },
+};
 
-const user = db.get<{ id: number; name: string }>("user");
-const product = db.get<{ id: number; title: string; price: number }>("product");
-
-console.log(user.id,user.name);      // Shivam
-console.log(product.title,product.price);  // 50000
-
-
-// conslusion
-// We provide the type of the value we expect the method to return.
+console.log(userResponse.status)
+console.log(userResponse.data)
+console.log(userResponse.data.id)
+console.log(userResponse.data.name)
