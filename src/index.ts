@@ -1,22 +1,16 @@
-// T is locked in when the interface is declared/implemented
-interface APIResponse<T> {
-  status: number;
-  data: T;
-  error?: string;
+interface HasId {
+  id: string | number;
 }
 
-// Usage with a specific shape
-interface User {
-  id: number;
-  name: string;
+// T MUST have an 'id' property
+function printId<T extends HasId>(item: T): void {
+  console.log(`Item ID: ${item.id}`);
 }
 
-const userResponse: APIResponse<User> = {
-  status: 200,
-  data: { id: 1, name: "Alice" },
-};
+// printId({ id: 101, title: "Product A" }); // Valid
+// // printId({ title: "Product B" });       // Error: Property 'id' is missing
 
-console.log(userResponse.status)
-console.log(userResponse.data)
-console.log(userResponse.data.id)
-console.log(userResponse.data.name)
+printId({id:"string id"})
+// printId({title:"string title"})// must have id atleast more things can be accepted if id is there
+
+// this meand accepting value with union's considered types
