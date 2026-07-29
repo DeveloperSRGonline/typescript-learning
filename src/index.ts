@@ -1,11 +1,16 @@
-// Use interface when:
+function identity<Type>(something: Type): Type {
+  return something;
+}
 
-// Defining shapes for objects, classes, or API response payload structures.
+console.log(identity<number>(123))
+console.log(identity<string>("String"))
+console.log(identity("without writing Generic type parameter"))
 
-// Writing public library code or SDKs (allows users to extend interfaces via declaration merging).
+identity<string>("Hello"); // Explicitly tells Type = string
 
-// Use type when:
+identity("Hello");         // TypeScript infers Type = string
 
-// Defining union or intersection types (e.g., type Status = 'success' | 'error').
-
-// Typing primitives, tuples, or complex mapped and conditional types.
+// this is invalid
+// function identity<string>(something: string): string {
+//   return something;
+// }
